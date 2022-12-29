@@ -6,19 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Page title</title>
   <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.10.4/simple-lightbox.min.css"
+    integrity="sha512-ka1/Z+PCN6JAoOVT50Ujjhq74r3hE0r433lM5X3VlLmxXRRkAJIPSXiZlccGx6Syd56QW+rPoYaLHm5iIPthLg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script type="module" src="./index.js"></script>
+
 </head>
 
 <body>
   <div class="head">
 
     <form class="search-form" id="search-form">
-      <input
-       type="text"
-       name="searchQuery"
-       autocomplete="off" 
-       placeholder="Search images..."
-       class="search-api">
+      <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." class="search-api">
       <button type="submit" class="button-input">
         <svg class="search" width="20" height="17">
           <use href="./svg/symbol-defs.svg#icon-search"></use>
@@ -26,7 +25,11 @@
 
       </button>
     </form>
+
   </div>
+  <div class="gallery"></div>
+  <button type="button" class="load-more">Load more</button>
+ 
 </body>
 
 </html>
