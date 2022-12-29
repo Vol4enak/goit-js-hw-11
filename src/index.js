@@ -15,8 +15,8 @@ refs.loadMore.style.visibility = 'hidden';
 function onSearch(e) {
   e.preventDefault();
   newGetsPhoto.query = e.target.searchQuery.value;
+  refs.loadMore.style.visibility = 'visible';
   refs.loadMore.textContent = 'Feaching...';
-  
   cleatHtml();
   newGetsPhoto.resetValue();
   newGetsPhoto
@@ -24,7 +24,7 @@ function onSearch(e) {
     .getSomePhoto()
     .then(res => {
       renderCarts(res);
-      refs.loadMore.style.visibility = 'visible';
+    
       refs.loadMore.textContent = 'Load More';
     })
     .catch(() => {
