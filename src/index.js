@@ -28,7 +28,6 @@ function onSearch(e) {
       refs.loadMore.textContent = 'Load More';
     })
     .catch(() => {
-       refs.loadMore.textContent = 'Error!!!';
       refs.loadMore.style.visibility = 'hidden';
     });
 }
