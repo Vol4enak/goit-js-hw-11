@@ -17,7 +17,8 @@ refs.loadMore.addEventListener('click', onLoad);
 function onSearch(e) {
   e.preventDefault();
   newGetsPhoto.query = e.target.searchQuery.value;
- refs.loadMore.textContent = 'Feaching...';
+  refs.loadMore.textContent = 'Feaching...';
+  refs.loadMore.style.visibility = 'visible';
   cleatHtml();
   newGetsPhoto.resetValue();
   newGetsPhoto
