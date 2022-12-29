@@ -1,5 +1,3 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
 const refs = {
   inputEl: document.querySelector('.search-api'),
   buttonEl: document.querySelector('.button-input'),
@@ -13,12 +11,12 @@ const newGetsPhoto = new NewPhoto();
 
 refs.formEl.addEventListener('submit', onSearch);
 refs.loadMore.addEventListener('click', onLoad);
-
+refs.loadMore.style.visibility = 'hidden';
 function onSearch(e) {
   e.preventDefault();
   newGetsPhoto.query = e.target.searchQuery.value;
   refs.loadMore.textContent = 'Feaching...';
-  refs.loadMore.style.visibility = 'hidden';
+  
   cleatHtml();
   newGetsPhoto.resetValue();
   newGetsPhoto
