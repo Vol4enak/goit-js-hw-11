@@ -18,7 +18,7 @@ function onSearch(e) {
   e.preventDefault();
   newGetsPhoto.query = e.target.searchQuery.value;
   refs.loadMore.textContent = 'Feaching...';
-  refs.loadMore.style.visibility = 'visible';
+  refs.loadMore.style.visibility = 'hidden';
   cleatHtml();
   newGetsPhoto.resetValue();
   newGetsPhoto
