@@ -17,7 +17,7 @@ refs.loadMore.addEventListener('click', onLoad);
 function onSearch(e) {
   e.preventDefault();
   newGetsPhoto.query = e.target.searchQuery.value;
-  refs.loadMore.textContent = 'Error!!!';
+ refs.loadMore.textContent = 'Feaching...';
   cleatHtml();
   newGetsPhoto.resetValue();
   newGetsPhoto
@@ -29,6 +29,7 @@ function onSearch(e) {
       refs.loadMore.textContent = 'Load More';
     })
     .catch(() => {
+       refs.loadMore.textContent = 'Error!!!';
       refs.loadMore.style.visibility = 'hidden';
     });
 }
@@ -55,7 +56,7 @@ function renderCarts(photo) {
       const render = `
 <div class="photo-card">
 <a class="gallery__item" href="${largeImageURL}" target="_self" >
-  <img class="gallery__image" src="${webformatURL}" alt="${tags}" width=400 height=250 />
+  <img class="gallery__image" src="${webformatURL}" alt="${tags}" loading="lazy" width=400 height=350/>
 </a>
   <div class="info">
     <p class="info-item">
