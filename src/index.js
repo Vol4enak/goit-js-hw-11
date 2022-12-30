@@ -17,17 +17,18 @@ function onSearch(e) {
   newGetsPhoto.query = e.target.searchQuery.value;
   refs.loadMore.style.visibility = 'visible';
   refs.loadMore.textContent = 'Feaching...';
+    
   cleatHtml();
   newGetsPhoto.resetValue();
-  newGetsPhoto
-
-    .getSomePhoto()
+  newGetsPhoto.getSomePhoto()
     .then(res => {
       renderCarts(res);
-    
       refs.loadMore.textContent = 'Load More';
     })
-    
+    .catch(() => {
+       
+      refs.loadMore.style.visibility = 'hidden';
+    });
 }
 
 function onLoad() {
