@@ -9,29 +9,30 @@ export default class NewPhoto {
     this.searchQuery = '';
     this.page = 1;
   }
- async getSomePhoto() {
-  try {
-     const getFetch = await axios.get(
-       `https://pixabay.com/api/?key=${PER_KEY}&q=${this.searchQuery}${apiSettings}&page=${this.page}`
-     );
-     if (getFetch.data.hits.length === 0 || !this.searchQuery) {
-       throw new Error();
-    }
-     Notify.success(`Hooray! We found ${getFetch.data.totalHits} images.`);
-     this.incrementValue();
-     return getFetch.data;
-   } catch{
-     Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
+  async getSomePhoto() {
+    try {
+      const getFetch = await axios.get(
+        `https://pixabay.com/api/?key=${PER_KEY}&q=${this.searchQuery}${apiSettings}&page=${this.page}`
       );
-  }
-      };
 
+      if (getFetch.data.hits.length === 0 || !this.searchQuery) {
+        throw new Error();
+      }
+      this.incrementValue();
+      return getFetch.data;
+    } catch (error) {
+      if (!this.searchQuery) {
+        Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+      }
+    }
+  }
   set query(newQuery) {
     this.searchQuery = newQuery;
   }
-  incrementValue(){
-     this.page += 1;
+  incrementValue() {
+    this.page += 1;
   }
 
   resetValue() {

@@ -1,3 +1,7 @@
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+import NewPhoto from './feachAPI';
 const refs = {
   inputEl: document.querySelector('.search-api'),
   buttonEl: document.querySelector('.button-input'),
@@ -6,37 +10,64 @@ const refs = {
   galleryEl: document.querySelector('.gallery'),
 };
 
-import NewPhoto from './feachAPI';
 const newGetsPhoto = new NewPhoto();
+
+let ligthbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 refs.formEl.addEventListener('submit', onSearch);
 refs.loadMore.addEventListener('click', onLoad);
 refs.loadMore.style.visibility = 'hidden';
-function onSearch(e) {
+
+let numOfSearch = 0;
+
+
+async function onSearch(e) {
   e.preventDefault();
+  
   newGetsPhoto.query = e.target.searchQuery.value;
   refs.loadMore.style.visibility = 'visible';
   refs.loadMore.textContent = 'Feaching...';
-    
   cleatHtml();
   newGetsPhoto.resetValue();
-  newGetsPhoto.getSomePhoto()
-    .then(res => {
-      renderCarts(res);
-      refs.loadMore.textContent = 'Load More';
-      refs.loadMore.style.visibility = 'visible';
-    }).catch((error) => {
-      console.log(error);
-       refs.loadMore.style.visibility = 'hidden';
-    });
+  try {
+    const resFromPhoto = await newGetsPhoto.getSomePhoto();
+    numOfSearch = await resFromPhoto.totalHits;
+    renderCarts(resFromPhoto);
+    refs.loadMore.textContent = 'Load More';
+    refs.loadMore.style.visibility = 'visible';
+    Notify.success(`Hooray! We found ${numOfSearch} images.`);
+    ligthbox.refresh();
+  } catch (error) {
+    Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    refs.loadMore.style.visibility = 'hidden';
+  }
 }
 
-function onLoad() {
+async function onLoad() {
   refs.loadMore.textContent = 'Feaching...';
-  newGetsPhoto.getSomePhoto().then(res => {
+
+  try {
+    const resFromPhoto = await newGetsPhoto.getSomePhoto();
+  
+    if ((numOfSearch -= 40) < 0) {
+      throw new Error();
+    } 
+       Notify.success(`Hooray! We found ${numOfSearch} images.`);
+    
     refs.loadMore.textContent = 'Load More';
-    renderCarts(res);
-  });
+    renderCarts(resFromPhoto);
+    ligthbox.refresh();
+  } catch (error) {
+    refs.loadMore.style.visibility = 'hidden';
+    Notify.failure(
+      "We're sorry, but you've reached the end of search results."
+    );
+  }
 }
 
 function renderCarts(photo) {
