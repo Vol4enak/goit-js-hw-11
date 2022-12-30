@@ -40,7 +40,7 @@ function onLoad() {
 }
 
 function renderCarts(photo) {
-  return (comlpPhoto = photo.hits.map(
+  return photo.hits.map(
     ({
       webformatURL,
       largeImageURL,
@@ -73,7 +73,7 @@ function renderCarts(photo) {
 
       return refs.galleryEl.insertAdjacentHTML('beforeend', render);
     }
-  ));
+  );
 }
 
 function cleatHtml() {
