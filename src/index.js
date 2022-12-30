@@ -24,10 +24,10 @@ function onSearch(e) {
     .then(res => {
       renderCarts(res);
       refs.loadMore.textContent = 'Load More';
-    })
-    .catch(() => {
-       
-      refs.loadMore.style.visibility = 'hidden';
+      refs.loadMore.style.visibility = 'visible';
+    }).catch((error) => {
+      console.log(error);
+       refs.loadMore.style.visibility = 'hidden';
     });
 }
 
