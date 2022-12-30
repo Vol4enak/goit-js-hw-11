@@ -27,9 +27,7 @@ function onSearch(e) {
     
       refs.loadMore.textContent = 'Load More';
     })
-    .catch(() => {
-      refs.loadMore.style.visibility = 'hidden';
-    });
+    
 }
 
 function onLoad() {
